@@ -39,10 +39,10 @@ class Arbol {
             return;
         }
 
-        // Recorrer el subárbol izquierdo
+        // Recorrer el subarbol izquierdo
         recorrerPostorden(nodo.izquierdo);
 
-        // Recorrer el subárbol derecho
+        // Recorrer el subarbol derecho
         recorrerPostorden(nodo.derecho);
 
         // Mostrar el nodo (operando u operador)
@@ -52,21 +52,45 @@ class Arbol {
             System.out.print(nodo.operador + " ");
         }
     }
+
+    // Método para recorrer el arbol en notacion polaca y mostrar el recorrido
+    public void recorrerPolaca() {
+        recorrerPolaca(raiz);
+    }
+
+    private void recorrerPolaca(Nodo nodo) {
+        if (nodo == null) {
+            return;
+        }
+
+        // Mostrar el nodo (operando u operador)
+        if (nodo.operador == ' ') {
+            System.out.print(nodo.valor + " ");
+        } else {
+            System.out.print(nodo.operador + " ");
+        }
+
+        // Recorrer el subarbol izquierdo
+        recorrerPolaca(nodo.izquierdo);
+
+        // Recorrer el subarbol derecho
+        recorrerPolaca(nodo.derecho);
+    }
 }
 
 public class Proyecto_1 {
 
-    // Método para evaluar la expresión matemática y calcular su resultado
+    // Método para evaluar la expresion matematica y calcular su resultado
     public static int evaluar(String expresion, Map<Character, Integer> variables) {
-        // Construir el árbol de expresiones
+        // Construir el arbol de expresiones
         Arbol arbol = new Arbol();
         arbol.raiz = construirArbol(expresion, variables);
 
-        // Evaluar el árbol de expresiones
+        // Evaluar el arbol de expresiones
         return evaluarArbol(arbol.raiz);
     }
 
-    // Método para evaluar el árbol de expresiones recursivamente
+    // Método para evaluar el arbol de expresiones recursivamente
     public static int evaluarArbol(Nodo raiz) {
         if (raiz == null) {
             return 0;
@@ -90,7 +114,7 @@ public class Proyecto_1 {
                 if (derecho != 0) {
                     return izquierdo / derecho;
                 } else {
-                    throw new ArithmeticException("División por cero");
+                    throw new ArithmeticException("Division por cero");
                 }
             default:
                 return 0;
@@ -100,13 +124,13 @@ public class Proyecto_1 {
     // Método principal
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese la expresión matemática con variables: ");
+        System.out.print("Ingrese la expresion matematica con variables: ");
         String expresion = scanner.nextLine();
 
         // Mapa para almacenar los valores de las variables
         Map<Character, Integer> variables = new HashMap<>();
         for (char c : expresion.toCharArray()) {
-            // Solicitar al usuario que ingrese el valor de cada variable encontrada en la expresión
+            // Solicitar al usuario que ingrese el valor de cada variable encontrada en la expresion
             if (Character.isAlphabetic(c) && !variables.containsKey(c)) {
                 System.out.print("Ingrese el valor para " + c + ": ");
                 int valor = scanner.nextInt();
@@ -114,8 +138,8 @@ public class Proyecto_1 {
             }
         }
 
-        // Mostrar la expresión matemática con los valores ingresados
-        System.out.println("Expresión matemática con valores ingresados:");
+        // Mostrar la expresion matematica con los valores ingresados
+        System.out.println("Expresion matematica con valores ingresados:");
         StringBuilder expresionConValores = new StringBuilder();
         for (char c : expresion.toCharArray()) {
             if (Character.isAlphabetic(c)) {
@@ -126,18 +150,22 @@ public class Proyecto_1 {
         }
         System.out.println(expresionConValores.toString());
 
-        // Evaluar la expresión y mostrar el resultado
+        // Evaluar la expresion y mostrar el resultado
         int resultado = evaluar(expresion, variables);
-        System.out.println("El resultado de la expresión es: " + resultado);
+        System.out.println("El resultado de la expresion es: " + resultado);
 
-        // Crear el árbol de expresiones y mostrar el recorrido postorden
+        // Crear el arbol de expresiones y mostrar el recorrido postorden
         Arbol arbol = new Arbol();
         arbol.raiz = construirArbol(expresion, variables);
-        System.out.println("Recorrido postorden del árbol de expresiones:");
+        System.out.println("Recorrido postorden del arbol de expresiones:");
         arbol.recorrerPostorden();
+
+        // Mostrar el recorrido en notacion polaca del arbol de expresiones
+        System.out.println("\nRecorrido en notacion polaca del arbol de expresiones:");
+        arbol.recorrerPolaca();
     }
 
-    // Método para construir el árbol de expresiones
+    // Método para construir el arbol de expresiones
     public static Nodo construirArbol(String expresion, Map<Character, Integer> variables) {
         char[] chars = expresion.toCharArray();
 
@@ -157,7 +185,7 @@ public class Proyecto_1 {
                 while (i < chars.length && (Character.isDigit(chars[i]) || chars[i] == '.')) {
                     sbuf.append(chars[i++]);
                 }
-                i--; // Retroceder para volver a leer el siguiente carácter
+                i--; // Retroceder para volver a leer el siguiente caracter
                 int valor = Integer.parseInt(sbuf.toString());
                 Nodo numero = new Nodo(valor);
                 stackExpresion.push(numero);
@@ -172,7 +200,7 @@ public class Proyecto_1 {
                     procesarOperador(stackOperadores.pop(), stackExpresion);
                 }
                 stackOperadores.pop(); // Eliminar el paréntesis de apertura
-                unario = false; // El paréntesis cierra una expresión, no puede ser seguido por un operador unario
+                unario = false; // El paréntesis cierra una expresion, no puede ser seguido por un operador unario
             } else if (chars[i] == '+' || chars[i] == '-' || chars[i] == '*' || chars[i] == '/') {
                 // Verificar si el operador es unario
                 boolean esUnario = unario && (chars[i] == '+' || chars[i] == '-');
@@ -203,11 +231,11 @@ public class Proyecto_1 {
             procesarOperador(stackOperadores.pop(), stackExpresion);
         }
 
-        // El resultado final estará en la raíz del árbol de expresiones
+        // El resultado final estara en la raíz del arbol de expresiones
         return stackExpresion.pop();
     }
 
-    // Método para procesar operadores y construir el árbol de expresiones
+    // Método para procesar operadores y construir el arbol de expresiones
     public static void procesarOperador(char operador, Stack<Nodo> stackExpresion) {
         Nodo derecho = stackExpresion.pop();
         Nodo izquierdo = stackExpresion.pop();

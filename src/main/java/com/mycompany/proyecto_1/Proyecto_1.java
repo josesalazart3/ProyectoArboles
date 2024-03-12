@@ -116,7 +116,15 @@ public class Proyecto_1 {
 
         // Mostrar la expresión matemática con los valores ingresados
         System.out.println("Expresión matemática con valores ingresados:");
-        System.out.println(expresion);
+        StringBuilder expresionConValores = new StringBuilder();
+        for (char c : expresion.toCharArray()) {
+            if (Character.isAlphabetic(c)) {
+                expresionConValores.append(variables.get(c));
+            } else {
+                expresionConValores.append(c);
+            }
+        }
+        System.out.println(expresionConValores.toString());
 
         // Evaluar la expresión y mostrar el resultado
         int resultado = evaluar(expresion, variables);

@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+//Clase objeto visual
 public class ArbolVisual extends JPanel {
+
     private Arbol arbol;
     private final int radio = 15; // Reducimos el tamaño de los nodos del árbol
     private final int espacioEntreNodos = 70; // Espacio entre los nodos del árbol
@@ -46,7 +48,7 @@ public class ArbolVisual extends JPanel {
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(2)); // Establecer el grosor de la línea
             // Ajustar las coordenadas para que la línea termine justo en el borde del círculo
-            int xLinea = x - (radio / 2); 
+            int xLinea = x - (radio / 2);
             int yLinea = y - radio;
             g.drawLine(xLinea, yLinea, newX, newY);
             // Llamar recursivamente al método para dibujar el nodo hijo izquierdo

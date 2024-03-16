@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.proyecto_1;
+//Clase Arbol
 
 public class Arbol {
 
@@ -57,7 +58,7 @@ public class Arbol {
         // Recorrer el subarbol derecho
         recorrerPolaca(nodo.derecho);
     }
-    
+
     public void imprimirArbol() {
         imprimirArbol(raiz, 0);
     }

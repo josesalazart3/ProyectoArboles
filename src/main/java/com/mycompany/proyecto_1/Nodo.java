@@ -4,9 +4,9 @@
  */
 package com.mycompany.proyecto_1;
 
-
-
+//Clase Nodo
 public class Nodo {
+
     char operador;
     int valor;
     Nodo izquierdo, derecho;

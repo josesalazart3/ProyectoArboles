@@ -1,4 +1,4 @@
-    package com.mycompany.proyecto_1;
+package com.mycompany.proyecto_1;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class Proyecto_1 {
 
-    // Método principal
+    // Método principal proyecto arboles
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la expresion matematica con variables: ");
